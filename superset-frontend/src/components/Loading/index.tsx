@@ -18,7 +18,6 @@
  */
 
 import React from 'react';
-import { styled } from '@superset-ui/core';
 import cls from 'classnames';
 import Loader from 'src/assets/images/loading.gif';
 
@@ -33,38 +32,42 @@ export interface Props {
   image?: string;
 }
 
-const LoaderImg = styled.img`
-  z-index: 99;
-  width: 50px;
-  height: unset;
-  position: relative;
-  margin: 10px;
-  &.inline {
-    margin: 0px;
-    width: 30px;
-  }
-  &.inline-centered {
-    margin: 0 auto;
-    width: 30px;
-    display: block;
-  }
-  &.floating {
-    padding: 0;
-    margin: 0;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
-`;
 export default function Loading({
   position = 'floating',
   image,
   className,
 }: Props) {
   return (
-    <LoaderImg
-      className={cls('loading', position, className)}
+    <img
+      style={{
+        zIndex: 99,
+        width: '450px',
+        height: '300px',
+        position: 'relative',
+        margin: '10px',
+        ...(position === 'floating'
+          ? {
+              padding: '0',
+              margin: '0',
+              position: 'absolute',
+              left: '50%',
+              top: '50%',
+              transform: 'translate(-50%, -50%)',
+            }
+          : position === 'inline'
+          ? {
+              margin: '0px',
+              width: '30px',
+            }
+          : position === 'inline-centered'
+          ? {
+              margin: '0 auto',
+              width: '30px',
+              display: 'block',
+            }
+          : undefined),
+      }}
+      className={cls('loading', className)}
       alt="Loading..."
       src={image || Loader}
       role="status"

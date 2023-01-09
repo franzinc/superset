@@ -89,6 +89,7 @@ const originalDocumentTitle = document.title;
 
 type PageProps = {
   idOrSlug: string;
+  showFilter: boolean;
 };
 
 const getDashboardContextLocalStorage = () => {
@@ -154,7 +155,10 @@ const useSyncDashboardStateWithLocalStorage = () => {
   return dashboardPageId;
 };
 
-export const DashboardPage: FC<PageProps> = ({ idOrSlug }: PageProps) => {
+export const DashboardPage: FC<PageProps> = ({
+  idOrSlug,
+  showFilter = true,
+}: PageProps) => {
   const dispatch = useDispatch();
   const theme = useTheme();
   const history = useHistory();
@@ -391,7 +395,7 @@ export const DashboardPage: FC<PageProps> = ({ idOrSlug }: PageProps) => {
 
       <MigrationContext.Provider value={filterboxMigrationState}>
         <DashboardPageIdContext.Provider value={dashboardPageId}>
-          <DashboardContainer />
+          <DashboardContainer showFilter={showFilter} />
         </DashboardPageIdContext.Provider>
       </MigrationContext.Provider>
     </>

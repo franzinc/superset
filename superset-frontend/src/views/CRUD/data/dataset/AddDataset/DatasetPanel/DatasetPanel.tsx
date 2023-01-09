@@ -49,9 +49,9 @@ interface StyledHeaderProps {
   position: EPosition;
 }
 
-const LOADER_WIDTH = 200;
-const SPINNER_WIDTH = 120;
-const HALF = 0.5;
+const LOADER_WIDTH = 530;
+// const SPINNER_WIDTH = 450;
+// const HALF = 0.5;
 const MARGIN_MULTIPLIER = 3;
 
 const StyledHeader = styled.div<StyledHeaderProps>`
@@ -109,8 +109,14 @@ const StyledLoader = styled.div`
   width: ${LOADER_WIDTH}px;
 
   img {
-    width: ${SPINNER_WIDTH}px;
-    margin-left: ${(LOADER_WIDTH - SPINNER_WIDTH) * HALF}px;
+    max-width: 450px;
+    width: 450px;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 
   div {

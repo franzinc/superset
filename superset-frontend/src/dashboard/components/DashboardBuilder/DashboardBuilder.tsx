@@ -79,7 +79,9 @@ import { getRootLevelTabsComponent, shouldFocusTabs } from './utils';
 import DashboardContainer from './DashboardContainer';
 import { useNativeFilters } from './state';
 
-type DashboardBuilderProps = {};
+type DashboardBuilderProps = {
+  showFilter: boolean;
+};
 
 const StyledDiv = styled.div`
   display: grid;
@@ -186,26 +188,7 @@ const StyledDashboardContent = styled.div<{
     width: 0;
     flex: 1;
     position: relative;
-    margin-top: ${({ theme }) => theme.gridUnit * 6}px;
-    margin-right: ${({ theme }) => theme.gridUnit * 8}px;
-    margin-bottom: ${({ theme }) => theme.gridUnit * 6}px;
-    margin-left: ${({
-      theme,
-      dashboardFiltersOpen,
-      editMode,
-      nativeFiltersEnabled,
-      filterBarOrientation,
-    }) => {
-      if (
-        !dashboardFiltersOpen &&
-        !editMode &&
-        nativeFiltersEnabled &&
-        filterBarOrientation !== FilterBarOrientation.HORIZONTAL
-      ) {
-        return 0;
-      }
-      return theme.gridUnit * 8;
-    }}px;
+    margin: 0;
 
     ${({ editMode, theme }) =>
       editMode &&
@@ -230,7 +213,7 @@ const StyledDashboardContent = styled.div<{
   }
 `;
 
-const DashboardBuilder: FC<DashboardBuilderProps> = () => {
+const DashboardBuilder: FC<DashboardBuilderProps> = ({ showFilter }) => {
   const dispatch = useDispatch();
   const uiConfig = useUiConfig();
 
@@ -329,7 +312,7 @@ const DashboardBuilder: FC<DashboardBuilderProps> = () => {
   const filterSetEnabled = isFeatureEnabled(
     FeatureFlag.DASHBOARD_NATIVE_FILTERS_SET,
   );
-  const showFilterBar = nativeFiltersEnabled && !editMode;
+  const showFilterBar = showFilter && nativeFiltersEnabled && !editMode;
 
   const offset =
     FILTER_BAR_HEADER_HEIGHT +

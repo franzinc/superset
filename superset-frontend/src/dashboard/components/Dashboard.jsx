@@ -44,6 +44,7 @@ import isDashboardEmpty from '../util/isDashboardEmpty';
 import { getAffectedOwnDataCharts } from '../util/charts/getOwnDataCharts';
 
 const propTypes = {
+  showFilter: PropTypes.bool,
   actions: PropTypes.shape({
     addSliceToDashboard: PropTypes.func.isRequired,
     removeSliceFromDashboard: PropTypes.func.isRequired,
@@ -291,7 +292,7 @@ class Dashboard extends React.PureComponent {
     }
     return (
       <>
-        <DashboardBuilder />
+        <DashboardBuilder showFilter={this.props.showFilter} />
       </>
     );
   }

@@ -112,7 +112,7 @@ describe('DashboardBuilder', () => {
   });
 
   function setup(overrideState = {}, overrideStore?: Store) {
-    return render(<DashboardBuilder />, {
+    return render(<DashboardBuilder showFilter />, {
       useRedux: true,
       store: storeWithState({
         ...mockState,

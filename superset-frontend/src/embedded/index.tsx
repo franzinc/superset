@@ -51,7 +51,10 @@ const EmbeddedRoute = () => (
   <Suspense fallback={<Loading />}>
     <RootContextProviders>
       <ErrorBoundary>
-        <LazyDashboardPage idOrSlug={bootstrapData.embedded!.dashboard_id} />
+        <LazyDashboardPage
+          showFilter={false}
+          idOrSlug={bootstrapData.embedded!.dashboard_id}
+        />
       </ErrorBoundary>
       <ToastContainer position="top" />
     </RootContextProviders>
@@ -127,6 +130,7 @@ function start() {
       // (because at pageload, we don't have any auth yet)
       // this allows the frontend's permissions checks to work.
       bootstrapData.user = result;
+      // bootstrapData.user = result as any;
       store.dispatch({
         type: USER_LOADED,
         user: result,
